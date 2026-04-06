@@ -3,6 +3,10 @@ use goose_cli::cli::cli;
 
 #[tokio::main]
 async fn main() -> Result<()> {
+    if !goose_cli::project_env::prepare_project_env().await? {
+        return Ok(());
+    }
+
     if let Err(e) = goose_cli::logging::setup_logging(None) {
         eprintln!("Warning: Failed to initialize logging: {}", e);
     }
